@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-primary: #000000;
+  --color-primary-light: #333333;
+  --color-primary-dark: #000000;
+  --color-primary-inverse: #ffffff;
+
+  --color-accent: #be2226;
+  --color-accent-hover: #991b1e;
+
+  /* Fonts */
+  --font-sans: 'Inter', sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    /* Use the theme variables directly or utility classes if mapped */
+    font-family: var(--font-sans);
+    @apply antialiased text-slate-800 bg-white;
+  }
+}
