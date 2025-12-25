@@ -13,12 +13,26 @@ import {
     Brain,
     Lightbulb
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import mathImage from '../assets/math-v2.png';
 import techImage from '../assets/technology.png';
 import collegeImage from '../assets/college-campus.png';
 
 const Programs = () => {
+    const location = useLocation();
+
+    React.useEffect(() => {
+        if (location.hash) {
+            const id = location.hash.replace('#', '');
+            const element = document.getElementById(id);
+            if (element) {
+                setTimeout(() => {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
+        }
+    }, [location]);
+
     const satComparisonData = [
         { feature: 'Class Size', lite: 'Max 7 Students', pro: 'Max 7 Students' },
         { feature: 'Instruction', lite: '15 Classes (2 hrs each)', pro: '15 Classes (2 hrs each)' },
@@ -75,38 +89,50 @@ const Programs = () => {
                         <h3 className="text-xl sm:text-2xl font-bold text-center text-primary mb-8 sm:mb-10">Choose Your Path</h3>
 
                         {/* Comparison Table */}
-                        <div className="relative pt-12 sm:pt-3 overflow-visible">
-                            <div className="relative overflow-x-auto pb-4 overflow-visible">
-                                <div className="md:hidden absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white/80 pointer-events-none z-10" />
-                                <table className="w-full border-collapse min-w-[600px] sm:min-w-0 rounded-xl overflow-hidden shadow-lg border border-gray-200">
+                        <div className="relative pt-3 sm:pt-3">
+                            {/* Scroll Wrapper */}
+                            <div className="relative overflow-x-auto pb-4 custom-scrollbar">
+                                {/* Mobile visual cue: Right side fade */}
+                                <div className="md:hidden absolute right-0 top-0 bottom-4 w-8 pointer-events-none z-30" />
+
+                                {/* FIX: Changed border-collapse to border-separate + border-spacing-0 */}
+                                <table className="w-full border-separate border-spacing-0 min-w-[600px] sm:min-w-0 rounded-xl shadow-lg border border-gray-200 overflow-hidden">
                                     <thead>
                                         <tr className="bg-blue-800 text-white">
-                                            <th className="p-4 sm:p-6 text-left w-1/3 align-bottom">Features</th>
-                                            <th className="p-4 sm:p-6 text-center border-l border-blue-400 align-bottom">
+                                            {/* STICKY HEADER */}
+                                            <th className="sticky left-0 z-20 p-4 sm:p-6 text-left w-1/3 align-bottom bg-blue-800 border-r border-blue-700 shadow-[4px_0_8px_-2px_rgba(0,0,0,0.2)]">
+                                                <div className="flex flex-col items-start sm:items-center">
+                                                    <span className="text-lg sm:text-2xl font-black">Features</span>
+                                                </div>
+                                            </th>
+
+                                            {/* LITE HEADER */}
+                                            <th className="p-4 sm:p-6 text-center align-bottom min-w-[140px]">
                                                 <div className="flex flex-col items-center">
                                                     <span className="text-lg sm:text-2xl font-black">K2C Lite ($1500)</span>
                                                 </div>
                                             </th>
-                                            <th className="p-3 sm:p-6 text-center border-l border-blue-400 bg-green-800 relative align-bottom overflow-hidden group min-h-[90px] sm:min-h-0">
-                                                {/* Corner Ribbon Price Tag - Responsive sizes */}
-                                                <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 pointer-events-none z-30">
-                                                    <div className="absolute top-4 -right-10 sm:top-6 sm:-right-8 transform rotate-45 flex items-center justify-center">
-                                                        {/* The Tag Body */}
-                                                        <div className="bg-yellow-400 text-gray-900 text-[8px] sm:text-[10px] uppercase tracking-widest font-black pl-5 pr-8 sm:pl-6 sm:pr-10 py-0.5 sm:py-1 shadow-2xl whitespace-nowrap border-y sm:border-y-2 border-white relative flex items-center">
-                                                            {/* The "Hole" in the tag */}
-                                                            <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-white rounded-full mr-1.5 sm:mr-2 shadow-inner border border-gray-300"></div>
-                                                            Best Value
-                                                            {/* Pointed Tip (Clip Path) */}
-                                                            <div
-                                                                className="absolute top-[-2px] right-[-10px] sm:right-[-12px] h-[calc(100%+4px)] w-3 sm:w-4 bg-yellow-400 border-r sm:border-r-2 border-white"
-                                                                style={{ clipPath: 'polygon(0 0, 100% 50%, 0 100%)' }}
-                                                            ></div>
+
+                                            {/* PRO HEADER */}
+                                            <th className="p-3 sm:p-6 text-center bg-green-800 relative align-bottom overflow-hidden group min-h-[90px] sm:min-h-0 min-w-[140px]">
+                                                {/* Ribbon */}
+                                                <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 pointer-events-none z-30 overflow-hidden">
+                                                    <div className="absolute top-0 right-0 transform translate-x-[30%] -translate-y-[20%] scale-75 sm:scale-100 origin-top-right">
+                                                        <div className="absolute top-6 -right-8 transform rotate-45 flex items-center justify-center">
+                                                            <div className="bg-yellow-400 text-gray-900 text-[10px] uppercase tracking-widest font-black pl-6 pr-10 py-1 shadow-2xl whitespace-nowrap border-y-2 border-white relative flex items-center">
+                                                                <div className="w-1.5 h-1.5 bg-white rounded-full mr-2 shadow-inner border border-gray-300"></div>
+                                                                Best Value
+                                                                <div
+                                                                    className="absolute top-[-2px] right-[-12px] h-[calc(100%+4px)] w-4 bg-yellow-400 border-r-2 border-white"
+                                                                    style={{ clipPath: 'polygon(0 0, 100% 50%, 0 100%)' }}
+                                                                ></div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div className="flex flex-col items-center">
-                                                    <span className="text-base sm:text-2xl font-black">K2C Pro ($2500)</span>
+                                                <div className="flex flex-col items-center relative z-10">
+                                                    <span className="text-lg sm:text-2xl font-black text-white">K2C Pro ($2500)</span>
                                                 </div>
                                             </th>
                                         </tr>
@@ -115,15 +141,23 @@ const Programs = () => {
                                         {satComparisonData.map((row, index) => (
                                             <tr
                                                 key={index}
-                                                className={`${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} border-b border-gray-100 last:border-0`}
+                                                className={`${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}
                                             >
-                                                <td className="p-4 sm:p-6 font-semibold text-gray-900 text-sm sm:text-base">
+                                                {/* STICKY COLUMN: Row Label 
+                                        FIX: Removed border-collapse, so we use border-b on cells manually 
+                                        Added explicit background color to cover scrolling content 
+                                    */}
+                                                <td className={`sticky left-0 z-10 p-4 sm:p-6 font-semibold text-gray-900 text-sm sm:text-base border-r border-gray-200 border-b border-gray-100 shadow-[4px_0_8px_-2px_rgba(0,0,0,0.1)] ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
                                                     {row.feature}
                                                 </td>
-                                                <td className="p-4 sm:p-6 text-center border-l border-gray-100 text-sm sm:text-base text-gray-700">
+
+                                                {/* LITE COLUMN */}
+                                                <td className="p-4 sm:p-6 text-center text-sm sm:text-base text-gray-700 border-b border-gray-100">
                                                     {row.lite}
                                                 </td>
-                                                <td className={`p-4 sm:p-6 text-center border-l border-gray-100 ${row.highlight ? 'bg-green-50/50 font-bold text-green-800' : 'text-gray-700'} text-sm sm:text-base`}>
+
+                                                {/* PRO COLUMN */}
+                                                <td className={`p-4 sm:p-6 text-center border-l border-gray-100 border-b border-gray-100 ${row.highlight ? 'bg-green-50/50 font-bold text-green-800' : 'text-gray-700'} text-sm sm:text-base`}>
                                                     {row.pro}
                                                 </td>
                                             </tr>
@@ -132,10 +166,11 @@ const Programs = () => {
                                 </table>
                             </div>
 
-                            <div className="mt-10 sm:mt-12 text-center">
+                            {/* CTA Button */}
+                            <div className="mt-10 sm:mt-12 text-center px-4 sm:px-0">
                                 <Link
                                     to="/sat-roadmap"
-                                    className="w-full sm:w-auto inline-block bg-accent hover:bg-accent-hover text-white px-8 py-4 rounded-lg font-bold text-lg transition-all shadow-lg hover:scale-105 active:scale-95"
+                                    className="w-full sm:w-auto inline-flex justify-center items-center bg-accent hover:bg-accent-hover text-white px-8 py-4 rounded-lg font-bold text-lg transition-all shadow-lg hover:scale-105 active:scale-95"
                                 >
                                     View SAT Roadmap
                                 </Link>
@@ -211,7 +246,7 @@ const Programs = () => {
                             </Link>
                         </div>
                     </div>
-                </section >
+                </section>
 
                 {/* Coding & Technology Section */}
                 < section id="computer-science" className="mb-24 scroll-mt-24" >

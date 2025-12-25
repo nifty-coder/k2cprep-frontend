@@ -19,10 +19,10 @@ const Footer = () => {
                     <div>
                         <h3 className="text-white font-semibold mb-4">Programs</h3>
                         <ul className="space-y-2">
-                            <li><Link to="/programs" className="hover:text-accent transition-colors">K2C SAT Prep (Lite & Pro)</Link></li>
-                            <li><Link to="/programs" className="hover:text-accent transition-colors">Math Tutoring (Algebra, Geometry)</Link></li>
-                            <li><Link to="/programs" className="hover:text-accent transition-colors">Computer Science & Cloud</Link></li>
-                            <li><Link to="/programs" className="hover:text-accent transition-colors">College Application Support</Link></li>
+                            <li><Link to="/programs#sat-prep" className="hover:text-accent transition-colors">K2C SAT Prep (Lite & Pro)</Link></li>
+                            <li><Link to="/programs#math-tutoring" className="hover:text-accent transition-colors">Math Tutoring (Algebra, Geometry)</Link></li>
+                            <li><Link to="/programs#computer-science" className="hover:text-accent transition-colors">Computer Science & Cloud</Link></li>
+                            <li><Link to="/programs#college-admissions" className="hover:text-accent transition-colors">College Application Support</Link></li>
                         </ul>
                     </div>
 
