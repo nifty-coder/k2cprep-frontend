@@ -7,24 +7,12 @@ const Footer = () => {
     return (
         <footer className="bg-primary-dark text-gray-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    <div className="space-y-4">
-                        <Link to="/" className="flex items-center space-x-2">
-                            {/* <BookOpen className="h-6 w-6 text-accent" /> */}
-                            <span className="font-bold text-xl text-white tracking-wide">K2C Prep</span>
-                        </Link>
-                        <p className="text-sm leading-relaxed">
-                            Unlocking every student’s true potential through personalized attention, deep conceptual learning, and rigorous, targeted practice.
-                        </p>
-                    </div>
-
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div>
                         <h3 className="text-white font-semibold mb-4">Quick Links</h3>
                         <ul className="space-y-2">
-                            <li><Link to="/vision" className="hover:text-accent transition-colors">Our Vision</Link></li>
                             <li><Link to="/why-k2c" className="hover:text-accent transition-colors">Why K2C Prep</Link></li>
                             <li><Link to="/programs" className="hover:text-accent transition-colors">Programs</Link></li>
-                            <li><Link to="/parents" className="hover:text-accent transition-colors">Parent Partnership</Link></li>
                         </ul>
                     </div>
 
@@ -34,7 +22,7 @@ const Footer = () => {
                             <li><Link to="/programs" className="hover:text-accent transition-colors">K2C SAT Prep (Lite & Pro)</Link></li>
                             <li><Link to="/programs" className="hover:text-accent transition-colors">Math Tutoring (Algebra, Geometry)</Link></li>
                             <li><Link to="/programs" className="hover:text-accent transition-colors">Computer Science & Cloud</Link></li>
-                            <li><Link to="/contact" className="hover:text-accent transition-colors">Academic Mentorship</Link></li>
+                            <li><Link to="/programs" className="hover:text-accent transition-colors">College Application Support</Link></li>
                         </ul>
                     </div>
 

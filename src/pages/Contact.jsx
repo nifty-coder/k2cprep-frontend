@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Mail, Phone, Send, Instagram, Facebook, Linkedin } from 'lucide-react';
+import { Mail, Phone, Send, Instagram, Facebook, Linkedin, ChevronDown } from 'lucide-react';
 import { contactData } from '../components/common/contactData';
 
 const Contact = () => {
@@ -83,8 +83,20 @@ const Contact = () => {
         setStatus('Sending...');
         setStatusType('loading');
 
+        const rawApiUrl = import.meta.env.VITE_API_URL;
+        // Ensure no trailing slash for consistency
+        const apiUrl = rawApiUrl ? rawApiUrl.replace(/\/$/, '') : '';
+
+        console.log('Attempting to contact API at:', apiUrl);
+
+        if (!apiUrl && import.meta.env.PROD) {
+            setStatus('System configuration error: API URL is missing.');
+            setStatusType('error');
+            return;
+        }
+
         try {
-            const response = await fetch('http://localhost:5001/api/contact', {
+            const response = await fetch(`${apiUrl}/api/contact`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -92,19 +104,20 @@ const Contact = () => {
                 body: JSON.stringify(formData),
             });
 
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.message || `Server responded with ${response.status}`);
+            }
+
             const result = await response.json();
 
-            if (response.ok) {
-                setStatus('Thank you! We will reach out to you shortly.');
-                setStatusType('success');
-                setFormData({ name: '', email: '', phone: '', message: '', program: 'K2C Pro ($2500)' });
-            } else {
-                setStatus(result.message || 'Something went wrong. Please try again.');
-                setStatusType('error');
-            }
+            setStatus('Thank you! We will reach out to you shortly.');
+            setStatusType('success');
+            setFormData({ name: '', email: '', phone: '', message: '', program: 'K2C Pro ($2500)' });
+
         } catch (error) {
             console.error('Error submitting form:', error);
-            setStatus('Failed to send message. Please try again later.');
+            setStatus(error.message || 'Failed to send message. Please try again later.');
             setStatusType('error');
         }
     };
@@ -112,128 +125,123 @@ const Contact = () => {
     return (
         <div className="bg-gray-50 min-h-screen py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-16">
-                    <h1 className="text-4xl font-bold text-primary mb-4">Contact Us</h1>
-                    <p className="text-xl text-gray-500">We're here to answer your questions and help you get started.</p>
-                </div>
+                <div className="max-w-4xl mx-auto">
+                    {/* Visual Divider / Accent */}
+                    <div className="flex justify-center mb-6">
+                        <div className="h-1.5 w-24 bg-accent rounded-full"></div>
+                    </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    {/* Contact Info */}
-                    <div className="bg-primary text-white rounded-2xl p-10 shadow-xl flex flex-col justify-between">
-                        <div>
-                            <h2 className="text-2xl font-bold mb-8">Get in Touch</h2>
-                            <div className="space-y-8">
-                                <div className="flex items-start gap-4">
-                                    <Phone className="h-6 w-6 text-accent mt-1" />
-                                    <div>
-                                        <h3 className="font-semibold text-lg">Phone</h3>
-                                        <a href={`tel:${contactData.phone}`} className="text-blue-100 hover:text-white transition-colors">{contactData.phone}</a>
-                                        <p className="text-sm text-blue-200 mt-1">Mon-Fri 9am-6pm EST</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-start gap-4">
-                                    <Mail className="h-6 w-6 text-accent mt-1" />
-                                    <div>
-                                        <h3 className="font-semibold text-lg">Email</h3>
-                                        <a href={`mailto:${contactData.email}`} className="text-blue-100 hover:text-white transition-colors">{contactData.email}</a>
-                                    </div>
-                                </div>
+                    <div className="text-center mb-16">
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-primary mb-6">Let's Build Your Path</h1>
+                        <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                            Questions about our curriculum? Want to schedule a consultation?
+                            Fill out the form below and we'll be in touch within 24 hours.
+                        </p>
+                    </div>
+
+                    {/* Contact Channel Cards */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
+                        <div className="bg-white p-8 rounded-3xl shadow-lg border border-gray-100 flex items-center gap-6 group hover:shadow-2xl transition-all">
+                            <div className="h-16 w-16 bg-blue-50 rounded-2xl flex items-center justify-center shrink-0 group-hover:bg-primary transition-colors">
+                                <Phone className="h-8 w-8 text-primary group-hover:text-white transition-colors" />
+                            </div>
+                            <div>
+                                <div className="text-xs font-black text-accent uppercase tracking-widest mb-1">Call Us</div>
+                                <a href={`tel:${contactData.phone}`} className="text-xl font-bold text-primary hover:text-accent transition-colors">
+                                    {contactData.phone}
+                                </a>
+                                <p className="text-xs text-gray-500 mt-1 font-medium italic">Mon-Sun 10am-8pm CST</p>
                             </div>
                         </div>
 
-                        <div className="mt-12 pt-12 border-t border-blue-800">
-                            <h3 className="font-semibold text-lg mb-4">Follow Us</h3>
-                            <div className="flex gap-4">
-                                {contactData.instagram && (
-                                    <a href={contactData.instagram} target="_blank" rel="noopener noreferrer" className="h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
-                                        <Instagram className="h-5 w-5" />
-                                        <span className="sr-only">Instagram</span>
-                                    </a>
-                                )}
-                                {contactData.facebook && (
-                                    <a href={contactData.facebook} target="_blank" rel="noopener noreferrer" className="h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
-                                        <Facebook className="h-5 w-5" />
-                                        <span className="sr-only">Facebook</span>
-                                    </a>
-                                )}
-                                {contactData.linkedin && contactData.linkedin !== '#' && (
-                                    <a href={contactData.linkedin} target="_blank" rel="noopener noreferrer" className="h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
-                                        <Linkedin className="h-5 w-5" />
-                                        <span className="sr-only">LinkedIn</span>
-                                    </a>
-                                )}
+                        <div className="bg-white p-8 rounded-3xl shadow-lg border border-gray-100 flex items-center gap-6 group hover:shadow-2xl transition-all">
+                            <div className="h-16 w-16 bg-blue-50 rounded-2xl flex items-center justify-center shrink-0 group-hover:bg-primary transition-colors">
+                                <Mail className="h-8 w-8 text-primary group-hover:text-white transition-colors" />
+                            </div>
+                            <div>
+                                <div className="text-xs font-black text-accent uppercase tracking-widest mb-1">Email Us</div>
+                                <a href={`mailto:${contactData.email}`} className="text-lg font-bold text-primary hover:text-accent transition-colors break-all sm:break-normal">
+                                    {contactData.email}
+                                </a>
+                                <p className="text-xs text-gray-500 mt-1 font-medium italic">General Inquiries</p>
                             </div>
                         </div>
                     </div>
 
                     {/* Contact Form */}
-                    <div className="bg-white rounded-2xl p-10 shadow-lg">
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            {status && (
-                                <div className={`p-4 rounded-md text-sm font-medium ${statusType === 'error' ? 'bg-red-50 text-red-700' :
-                                    statusType === 'loading' ? 'bg-blue-50 text-blue-700' :
-                                        'bg-green-50 text-green-700'
-                                    }`}>
-                                    {status}
+                    <div className="bg-white rounded-[2rem] p-8 md:p-12 shadow-2xl border border-gray-100 relative overflow-hidden">
+                        {/* Decorative Background Element */}
+                        <div className="absolute top-0 right-0 -mt-10 -mr-10 h-40 w-40 bg-blue-50 rounded-full blur-3xl opacity-50"></div>
+
+                        <form onSubmit={handleSubmit} className="relative z-10 space-y-8">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div className="space-y-2">
+                                    <label htmlFor="name" className="text-sm font-black text-primary uppercase tracking-wider ml-1">Full Name</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        required
+                                        value={formData.name}
+                                        onChange={handleChange}
+                                        className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all text-gray-900 font-medium placeholder:text-gray-400"
+                                        placeholder="Enter name"
+                                    />
                                 </div>
-                            )}
-                            <div>
-                                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                                <input
-                                    type="text"
-                                    id="name"
-                                    name="name"
-                                    required
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-shadow"
-                                    placeholder="Parent or Student Name"
-                                />
+                                <div className="space-y-2">
+                                    <label htmlFor="email" className="text-sm font-black text-primary uppercase tracking-wider ml-1">Email Address</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        required
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all text-gray-900 font-medium placeholder:text-gray-400"
+                                        placeholder="name@email.com"
+                                    />
+                                </div>
                             </div>
-                            <div>
-                                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    required
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-shadow"
-                                    placeholder="you@example.com"
-                                />
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div className="space-y-2">
+                                    <label htmlFor="phone" className="text-sm font-black text-primary uppercase tracking-wider ml-1">Phone Number</label>
+                                    <input
+                                        type="tel"
+                                        id="phone"
+                                        name="phone"
+                                        value={formData.phone}
+                                        onChange={handleChange}
+                                        className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all text-gray-900 font-medium placeholder:text-gray-400"
+                                        placeholder="(XXX) XXX-XXXX"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label htmlFor="program" className="text-sm font-black text-primary uppercase tracking-wider ml-1">Interested Program</label>
+                                    <div className="relative">
+                                        <select
+                                            id="program"
+                                            name="program"
+                                            value={formData.program}
+                                            onChange={handleChange}
+                                            className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all text-gray-900 font-bold appearance-none cursor-pointer pr-12"
+                                        >
+                                            <option>SAT Prep</option>
+                                            <option>Math Tutoring</option>
+                                            <option>Computer Science</option>
+                                            <option>Cloud Computing</option>
+                                            <option>College Application Support</option>
+                                            <option>Other / Unsure</option>
+                                        </select>
+                                        <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                                            <ChevronDown className="h-5 w-5" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                                <input
-                                    type="tel"
-                                    id="phone"
-                                    name="phone"
-                                    value={formData.phone}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-shadow"
-                                    placeholder="(555) 123-4567"
-                                />
-                            </div>
-                            <div>
-                                <label htmlFor="program" className="block text-sm font-medium text-gray-700 mb-1">Interested Program</label>
-                                <select
-                                    id="program"
-                                    name="program"
-                                    value={formData.program}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-shadow"
-                                >
-                                    <option>K2C Pro ($2500)</option>
-                                    <option>K2C Lite ($1500)</option>
-                                    <option>Math Tutoring</option>
-                                    <option>Technology & CS</option>
-                                    <option>Academic Mentorship</option>
-                                    <option>Other / Unsure</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+
+                            <div className="space-y-2">
+                                <label htmlFor="message" className="text-sm font-black text-primary uppercase tracking-wider ml-1">Your Message</label>
                                 <textarea
                                     id="message"
                                     name="message"
@@ -241,18 +249,33 @@ const Contact = () => {
                                     required
                                     value={formData.message}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-shadow"
-                                    placeholder="Tell us about the student's goals and challenges..."
+                                    className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all text-gray-900 font-medium placeholder:text-gray-400 resize-none"
+                                    placeholder="Enter your message here..."
                                 ></textarea>
                             </div>
 
-                            <button
-                                type="submit"
-                                className="w-full bg-accent text-white font-bold py-3 px-6 rounded-md hover:bg-accent-hover transition-colors flex items-center justify-center gap-2"
-                            >
-                                <Send className="h-5 w-5" />
-                                Send Message
-                            </button>
+                            <div className="pt-4">
+                                <button
+                                    type="submit"
+                                    disabled={statusType === 'loading'}
+                                    className="w-full bg-accent hover:bg-accent-hover text-white font-black py-5 px-8 rounded-2xl transition-all shadow-xl shadow-accent/20 hover:shadow-2xl hover:shadow-accent/40 active:scale-[0.98] flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed text-xl"
+                                >
+                                    {statusType === 'loading' ? 'Sending...' : 'Send Message'}
+                                    <Send className={`h-6 w-6 transition-transform group-hover:translate-x-1 ${statusType === 'loading' ? 'animate-pulse' : ''}`} />
+                                </button>
+
+                                {status && (
+                                    <div className={`mt-6 p-6 rounded-2xl text-sm font-bold border-2 animate-in fade-in slide-in-from-top-4 duration-300 ${statusType === 'error' ? 'bg-red-50 border-red-100 text-red-700' :
+                                        statusType === 'loading' ? 'bg-blue-50 border-blue-100 text-blue-700' :
+                                            'bg-green-50 border-green-100 text-green-800 shadow-lg shadow-green-100'
+                                        }`}>
+                                        <div className="flex items-center gap-3">
+                                            <div className={`h-2 w-2 rounded-full ${statusType === 'error' ? 'bg-red-500' : statusType === 'loading' ? 'bg-blue-500 animate-ping' : 'bg-green-500'}`}></div>
+                                            {status}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
                         </form>
                     </div>
                 </div>

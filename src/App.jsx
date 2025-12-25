@@ -2,11 +2,11 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { useLayoutEffect } from 'react';
 import Layout from './components/layout/Layout';
 import Home from './pages/Home';
-import Vision from './pages/Vision';
+
 import WhyK2C from './pages/WhyK2C';
 import Programs from './pages/Programs';
-import ParentPartnership from './pages/ParentPartnership';
 import Contact from './pages/Contact';
+import SATRoadmap from './pages/SATRoadmap';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -25,11 +25,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="vision" element={<Vision />} />
           <Route path="why-k2c" element={<WhyK2C />} />
           <Route path="programs" element={<Programs />} />
-          <Route path="parents" element={<ParentPartnership />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="sat-roadmap" element={<SATRoadmap />} />
         </Route>
       </Routes>
     </Router>
