@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Mail, Phone, Send, Instagram, Facebook, Linkedin, ChevronDown } from 'lucide-react';
 import { contactData } from '../components/common/contactData';
+import { apiUrl, abstractApiUrl } from '../../environmentVariables';
 
 const Contact = () => {
     const location = useLocation();
@@ -40,16 +41,13 @@ const Contact = () => {
             return { valid: false, message: "Please enter a valid email address format." };
         }
 
-        // 2. Abstract API Validation
-        const apiKey = import.meta.env.VITE_ABSTRACT_API_KEY;
-
         if (!apiKey) {
             console.error("Abstract API Key missing.");
             return { valid: false, message: "System configuration error: Validation API key missing. Check your .env setup." };
         }
 
         try {
-            const response = await fetch(`https://emailreputation.abstractapi.com/v1/?api_key=${apiKey}&email=${email}`);
+            const response = await fetch(`${abstractApiUrl}${email}`);
             const data = await response.json();
 
             if (data.email_deliverability.status === "undeliverable") {
@@ -82,12 +80,6 @@ const Contact = () => {
 
         setStatus('Sending...');
         setStatusType('loading');
-
-        const rawApiUrl = import.meta.env.VITE_API_URL;
-        // Ensure no trailing slash for consistency
-        const apiUrl = rawApiUrl ? rawApiUrl.replace(/\/$/, '') : '';
-
-        console.log('Attempting to contact API at:', apiUrl);
 
         if (!apiUrl && import.meta.env.PROD) {
             setStatus('System configuration error: API URL is missing.');
