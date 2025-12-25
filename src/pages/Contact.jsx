@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Mail, Phone, Send, Instagram, Facebook, Linkedin, ChevronDown } from 'lucide-react';
 import { contactData } from '../components/common/contactData';
 import { apiUrl } from '../../apiUrl';
+import Mailcheck from 'mailcheck';
 
 const Contact = () => {
     const location = useLocation();
@@ -15,6 +16,7 @@ const Contact = () => {
     });
     const [status, setStatus] = useState('');
     const [statusType, setStatusType] = useState(''); // 'success', 'error', 'loading'
+    const [emailSuggestion, setEmailSuggestion] = useState('');
 
     useEffect(() => {
         if (location.state?.program) {
@@ -36,6 +38,55 @@ const Contact = () => {
             setFormData(prev => ({ ...prev, [name]: numericValue }));
         } else {
             setFormData(prev => ({ ...prev, [name]: value }));
+        }
+
+        // Clear email suggestion if user starts typing in email field again
+        if (name === 'email') {
+            setEmailSuggestion('');
+            if (statusType === 'error' && status.includes('email')) {
+                setStatus('');
+                setStatusType('');
+            }
+        }
+    };
+
+    const handleEmailBlur = async () => {
+        const email = formData.email;
+        if (!email) return;
+
+        // 1. Basic Syntax Check
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!regex.test(email)) {
+            // Only show error if they've typed something fundamentally wrong
+            // but the user wants "validate email field onblur once its a valid format email"
+            // so we don't necessarily show an error if it's NOT valid format yet, 
+            // OR maybe we should if they leave the field.
+            return;
+        }
+
+        // 2. Mailcheck Suggestion
+        Mailcheck.run({
+            email: email,
+            suggested: (suggestion) => {
+                setEmailSuggestion(suggestion.full);
+            },
+            empty: () => {
+                setEmailSuggestion('');
+            }
+        });
+
+        // 3. Deep Validation (Backend)
+        // If it's a valid format, we do the full check
+        const validation = await validateEmail(email);
+        if (!validation.valid) {
+            setStatus(validation.message);
+            setStatusType('error');
+        } else {
+            // If it was an error before, clear it
+            if (statusType === 'error' && (status.includes('email') || status.includes('domain'))) {
+                setStatus('');
+                setStatusType('');
+            }
         }
     };
 
@@ -207,9 +258,24 @@ const Contact = () => {
                                         required
                                         value={formData.email}
                                         onChange={handleChange}
+                                        onBlur={handleEmailBlur}
                                         className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all text-gray-900 font-medium placeholder:text-gray-400"
                                         placeholder="name@email.com"
                                     />
+                                    {emailSuggestion && (
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setFormData(prev => ({ ...prev, email: emailSuggestion }));
+                                                setEmailSuggestion('');
+                                                // After fixing, re-validate
+                                                setTimeout(handleEmailBlur, 10);
+                                            }}
+                                            className="mt-2 text-sm text-accent font-bold hover:underline text-left block"
+                                        >
+                                            Did you mean <span className="italic">{emailSuggestion}</span>?
+                                        </button>
+                                    )}
                                 </div>
                             </div>
 
