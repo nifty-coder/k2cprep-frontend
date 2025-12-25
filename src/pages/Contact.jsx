@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Mail, Phone, Send, Instagram, Facebook, Linkedin, ChevronDown } from 'lucide-react';
 import { contactData } from '../components/common/contactData';
-import { apiUrl, abstractApiUrl } from '../../environmentVariables';
+import { apiUrl } from '../../apiUrl';
 
 const Contact = () => {
     const location = useLocation();
@@ -25,9 +25,9 @@ const Contact = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
 
-        // Phone number restriction: allow only numbers
+        // Phone number restriction: allow only numbers and limit to 10 digits
         if (name === 'phone') {
-            const numericValue = value.replace(/\D/g, '');
+            const numericValue = value.replace(/\D/g, '').slice(0, 10);
             setFormData(prev => ({ ...prev, [name]: numericValue }));
         } else {
             setFormData(prev => ({ ...prev, [name]: value }));
@@ -41,19 +41,18 @@ const Contact = () => {
             return { valid: false, message: "Please enter a valid email address format." };
         }
 
-        if (!apiKey) {
-            console.error("Abstract API Key missing.");
-            return { valid: false, message: "System configuration error: Validation API key missing. Check your .env setup." };
-        }
-
         try {
-            const response = await fetch(`${abstractApiUrl}${email}`);
+            const response = await fetch(`${apiUrl}/api/validate-email`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email }),
+            });
             const data = await response.json();
 
-            if (data.email_deliverability.status === "undeliverable") {
-                return { valid: false, message: "This email domain does not exist or cannot receive emails." };
-            } else if (data.email_quality.is_disposable === true) {
-                return { valid: false, message: "Please use a permanent email address (no disposable emails)." };
+            if (data.valid === false) {
+                return { valid: false, message: data.message };
             } else {
                 return { valid: true };
             }
@@ -74,6 +73,13 @@ const Contact = () => {
         const emailValidation = await validateEmail(formData.email);
         if (!emailValidation.valid) {
             setStatus(emailValidation.message);
+            setStatusType('error');
+            return;
+        }
+
+        // Validate Phone Number Length
+        if (formData.phone.length !== 10) {
+            setStatus('Please enter a valid 10-digit phone number.');
             setStatusType('error');
             return;
         }
