@@ -25,8 +25,13 @@ const Contact = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
 
+        // Name restriction: allow only letters and spaces
+        if (name === 'name') {
+            const textValue = value.replace(/[^a-zA-Z\s]/g, '');
+            setFormData(prev => ({ ...prev, [name]: textValue }));
+        }
         // Phone number restriction: allow only numbers and limit to 10 digits
-        if (name === 'phone') {
+        else if (name === 'phone') {
             const numericValue = value.replace(/\D/g, '').slice(0, 10);
             setFormData(prev => ({ ...prev, [name]: numericValue }));
         } else {
@@ -73,6 +78,13 @@ const Contact = () => {
         const emailValidation = await validateEmail(formData.email);
         if (!emailValidation.valid) {
             setStatus(emailValidation.message);
+            setStatusType('error');
+            return;
+        }
+
+        // Validate Name (no numbers)
+        if (!/^[a-zA-Z\s]+$/.test(formData.name)) {
+            setStatus('Please enter a valid Name (letters only).');
             setStatusType('error');
             return;
         }
