@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Users, Brain, Target, CheckCircle } from 'lucide-react';
+import heroStudent from '../assets/hero-student.png';
 
 const WhyK2C = () => {
     return (
         <div className="bg-white">
             {/* Section 1: Our Philosophy (The Core) */}
-            <section className="py-24 bg-primary ">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h2 className="text-3xl font-bold text-white mb-8">Why K2C Prep?</h2>
-                    <div className="space-y-6 text-lg text-white leading-relaxed font-medium">
+            <section className="relative py-24 sm:py-32 overflow-hidden bg-primary">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-8 tracking-tight">Why K2C Prep?</h1>
+                    <div className="space-y-6 text-xl sm:text-2xl text-blue-100/90 leading-relaxed font-medium">
                         <p>
                             We reject the "factory model" of education. Whether it is a high schooler learning Python or preparing for the SAT,
                             we don't just teach them <em>what</em> to think; we teach them <strong className="text-white">how to think</strong>.

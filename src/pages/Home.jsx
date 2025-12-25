@@ -2,21 +2,22 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {
     ArrowRight,
-    BookOpen,
-    Code,
     TrendingUp,
-    GraduationCap,
     Shield,
-    Award,
     PenTool
 } from 'lucide-react';
+import heroStudent from '../assets/hero-student.png';
+import mathV2Image from '../assets/math-v2.png';
+import satMasteryImage from '../assets/sat-mastery.jpg';
+import mathImage from '../assets/math.png';
+import techImage from '../assets/technology.png';
+import collegeImage from '../assets/college-campus.png';
 
 const Home = () => {
     return (
         <div className="bg-white">
             {/* Hero Section */}
             <section className="bg-primary pt-16 sm:pt-20 pb-12 sm:pb-16 text-white relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center opacity-10"></div>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="text-center max-w-4xl mx-auto mb-4 sm:mb-8">
                         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-4 sm:mb-6 tracking-tight">
@@ -52,24 +53,32 @@ const Home = () => {
 
                     <div className="flex flex-col lg:flex-row items-stretch gap-8">
                         {/* Step 1: GPA Excellence */}
-                        <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl transition-all hover:-translate-y-1 flex-1 w-full flex flex-col group">
-                            <div className="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 transform group-hover:rotate-6 transition-transform">
-                                <Shield className="h-7 w-7 text-primary" />
+                        <div className="bg-white rounded-3xl shadow-lg border border-gray-100 hover:shadow-2xl transition-all hover:-translate-y-1 flex-1 w-full flex flex-col group overflow-hidden">
+                            <div className="h-48 overflow-hidden relative">
+                                <img src={mathV2Image} alt="Math and CS Excellence" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent opacity-60"></div>
+                                <div className="absolute bottom-4 left-6">
+                                    <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center shadow-lg">
+                                        <Shield className="h-6 w-6 text-primary" />
+                                    </div>
+                                </div>
                             </div>
-                            <h3 className="text-2xl font-black text-primary mb-2">Step 1: GPA Excellence</h3>
-                            <h4 className="text-xs font-black text-accent uppercase tracking-widest mb-4">Math & Computer Science</h4>
-                            <p className="text-gray-600 mb-8 leading-relaxed text-sm sm:text-base">
-                                Build a strong academic foundation with expert support in high school math and computer science.
-                                We help students <strong className="text-primary font-bold">improve their high school GPA</strong> and master the subjects that matter most.
-                            </p>
-                            <div className="mt-auto pt-6 border-t border-gray-100">
-                                <div className="text-[10px] font-black uppercase tracking-wider text-gray-400 mb-3">Core Subjects</div>
-                                <div className="flex flex-wrap gap-2">
-                                    {["Algebra 1", "Algebra 2", "Geometry", "Pre-Calc", "AP Computer Science A", "AP Computer Science Principles"].map((tag) => (
-                                        <span key={tag} className="px-3 py-1 bg-blue-50 text-[11px] font-bold text-primary rounded-lg border border-blue-100">
-                                            {tag}
-                                        </span>
-                                    ))}
+                            <div className="p-6 sm:p-8 pt-4 flex flex-col flex-1">
+                                <h3 className="text-2xl font-black text-primary mb-2">Step 1: GPA Excellence</h3>
+                                <h4 className="text-xs font-black text-accent uppercase tracking-widest mb-4">Math & Computer Science</h4>
+                                <p className="text-gray-600 mb-8 leading-relaxed text-sm sm:text-base">
+                                    Build a strong academic foundation with expert support in high school math and computer science.
+                                    We help students <strong className="text-primary font-bold">improve their high school GPA</strong> and master the subjects that matter most.
+                                </p>
+                                <div className="mt-auto pt-6 border-t border-gray-100">
+                                    <div className="text-[10px] font-black uppercase tracking-wider text-gray-400 mb-3">Core Subjects</div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {["Algebra 1", "Algebra 2", "Geometry", "Pre-Calc", "AP Computer Science A", "AP Computer Science Principles"].map((tag) => (
+                                            <span key={tag} className="px-3 py-1 bg-blue-50 text-[11px] font-bold text-primary rounded-lg border border-blue-100">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -80,25 +89,33 @@ const Home = () => {
                         </div>
 
                         {/* Step 2: SAT Mastery */}
-                        <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg border-t-8 border-accent hover:shadow-2xl transition-all hover:-translate-y-1 relative flex-1 w-full flex flex-col group">
-                            <div className="w-14 h-14 bg-amber-100 rounded-2xl flex items-center justify-center mb-6 transform group-hover:rotate-6 transition-transform">
-                                <TrendingUp className="h-7 w-7 text-accent" />
+                        <div className="bg-white rounded-3xl shadow-lg border-t-8 border-accent hover:shadow-2xl transition-all hover:-translate-y-1 relative flex-1 w-full flex flex-col group overflow-hidden">
+                            <div className="h-48 overflow-hidden relative">
+                                <img src={satMasteryImage} alt="SAT Mastery" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent opacity-60"></div>
+                                <div className="absolute bottom-4 left-6">
+                                    <div className="w-12 h-12 bg-amber-100 rounded-2xl flex items-center justify-center shadow-lg">
+                                        <TrendingUp className="h-6 w-6 text-accent" />
+                                    </div>
+                                </div>
                             </div>
-                            <h3 className="text-2xl font-black text-primary mb-2">Step 2: SAT Mastery</h3>
-                            <h4 className="text-xs font-black text-accent uppercase tracking-widest mb-4">Elite Test Scores</h4>
-                            <p className="text-gray-600 mb-8 leading-relaxed text-sm sm:text-base">
-                                Achieve your dream SAT score with personalized prep that goes beyond tricks.
-                                Our program builds deep <strong className="text-primary font-bold">conceptual understanding </strong>
-                                and test-taking confidence through rigorous practice.
-                            </p>
-                            <div className="mt-auto pt-6 border-t border-gray-100">
-                                <div className="text-[10px] font-black uppercase tracking-wider text-gray-400 mb-3">Included</div>
-                                <div className="flex flex-wrap gap-2">
-                                    {["Math", "Reading & Writing", "Full Tests", "1-on-1 Reviews"].map((tag) => (
-                                        <span key={tag} className="px-3 py-1 bg-amber-50 text-[11px] font-bold text-accent rounded-lg border border-amber-100">
-                                            {tag}
-                                        </span>
-                                    ))}
+                            <div className="p-6 sm:p-8 pt-4 flex flex-col flex-1">
+                                <h3 className="text-2xl font-black text-primary mb-2">Step 2: SAT Mastery</h3>
+                                <h4 className="text-xs font-black text-accent uppercase tracking-widest mb-4">Elite Test Scores</h4>
+                                <p className="text-gray-600 mb-8 leading-relaxed text-sm sm:text-base">
+                                    Achieve your dream SAT score with personalized prep that goes beyond tricks.
+                                    Our program builds deep <strong className="text-primary font-bold">conceptual understanding </strong>
+                                    and test-taking confidence through rigorous practice.
+                                </p>
+                                <div className="mt-auto pt-6 border-t border-gray-100">
+                                    <div className="text-[10px] font-black uppercase tracking-wider text-gray-400 mb-3">Included</div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {["Math", "Reading & Writing", "Full Tests", "1-on-1 Reviews"].map((tag) => (
+                                            <span key={tag} className="px-3 py-1 bg-amber-50 text-[11px] font-bold text-accent rounded-lg border border-amber-100">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -109,25 +126,33 @@ const Home = () => {
                         </div>
 
                         {/* Step 3: College Essays */}
-                        <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl transition-all hover:-translate-y-1 flex-1 w-full flex flex-col group">
-                            <div className="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mb-6 transform group-hover:rotate-6 transition-transform">
-                                <PenTool className="h-7 w-7 text-green-600" />
+                        <div className="bg-white rounded-3xl shadow-lg border border-gray-100 hover:shadow-2xl transition-all hover:-translate-y-1 flex-1 w-full flex flex-col group overflow-hidden">
+                            <div className="h-48 overflow-hidden relative">
+                                <img src={collegeImage} alt="College Essays" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent opacity-60"></div>
+                                <div className="absolute bottom-4 left-6">
+                                    <div className="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center shadow-lg">
+                                        <PenTool className="h-6 w-6 text-green-600" />
+                                    </div>
+                                </div>
                             </div>
-                            <h3 className="text-2xl font-black text-primary mb-2">Step 3: College Essays</h3>
-                            <h4 className="text-xs font-black text-accent uppercase tracking-widest mb-4">Stand Out to Admissions</h4>
-                            <p className="text-gray-600 mb-8 leading-relaxed text-sm sm:text-base">
-                                Craft compelling narratives that showcase your unique story.
-                                Our expert <strong className="text-primary font-bold">essay review</strong> helps you
-                                create authentic, memorable essays that resonate with admissions officers.
-                            </p>
-                            <div className="mt-auto pt-6 border-t border-gray-100">
-                                <div className="text-[10px] font-black uppercase tracking-wider text-gray-400 mb-3">Support for</div>
-                                <div className="flex flex-wrap gap-2">
-                                    {["Main Essay", "Supplementals", "Brainstorming"].map((tag) => (
-                                        <span key={tag} className="px-3 py-1 bg-green-50 text-[11px] font-bold text-green-700 rounded-lg border border-green-100">
-                                            {tag}
-                                        </span>
-                                    ))}
+                            <div className="p-6 sm:p-8 pt-4 flex flex-col flex-1">
+                                <h3 className="text-2xl font-black text-primary mb-2">Step 3: College Essays</h3>
+                                <h4 className="text-xs font-black text-accent uppercase tracking-widest mb-4">Stand Out to Admissions</h4>
+                                <p className="text-gray-600 mb-8 leading-relaxed text-sm sm:text-base">
+                                    Craft compelling narratives that showcase your unique story.
+                                    Our expert <strong className="text-primary font-bold">essay review</strong> helps you
+                                    create authentic, memorable essays that resonate with admissions officers.
+                                </p>
+                                <div className="mt-auto pt-6 border-t border-gray-100">
+                                    <div className="text-[10px] font-black uppercase tracking-wider text-gray-400 mb-3">Support for</div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {["Main Essay", "Supplementals", "Brainstorming"].map((tag) => (
+                                            <span key={tag} className="px-3 py-1 bg-green-50 text-[11px] font-bold text-green-700 rounded-lg border border-green-100">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>

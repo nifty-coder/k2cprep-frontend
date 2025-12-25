@@ -14,6 +14,9 @@ import {
     Lightbulb
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import mathImage from '../assets/math-v2.png';
+import techImage from '../assets/technology.png';
+import collegeImage from '../assets/college-campus.png';
 
 const Programs = () => {
     const satComparisonData = [
@@ -144,13 +147,23 @@ const Programs = () => {
                 {/* Math Tutoring Section */}
                 <section id="math-tutoring" className="mb-24 scroll-mt-24">
                     <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 border-t-4 border-green-500">
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className="bg-green-100 p-4 rounded-full">
-                                <BookOpen className="h-10 w-10 text-green-600" />
+                        <div className="flex flex-col lg:flex-row items-start lg:items-center gap-8 mb-10 text-left">
+                            <div className="lg:w-1/2">
+                                <div className="flex items-center gap-4 mb-6">
+                                    <div className="bg-green-100 p-4 rounded-full">
+                                        <BookOpen className="h-10 w-10 text-green-600" />
+                                    </div>
+                                    <div>
+                                        <h2 className="text-3xl md:text-4xl font-bold text-primary">Math Tutoring</h2>
+                                        <p className="text-gray-600 mt-1">Move from "struggling" to "mastering"</p>
+                                    </div>
+                                </div>
+                                <p className="text-gray-600 text-lg leading-relaxed mb-6">
+                                    Our math program builds deep conceptual understanding, helping students not just solve problems, but understand the logic behind them. We bridge the gaps from Algebra 1 to Pre-Calculus.
+                                </p>
                             </div>
-                            <div>
-                                <h2 className="text-3xl md:text-4xl font-bold text-primary">Math Tutoring</h2>
-                                <p className="text-gray-600 mt-1">Move from "struggling" to "mastering"</p>
+                            <div className="lg:w-1/2 w-full h-64 rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                                <img src={mathImage} alt="Math Tutoring" className="w-full h-full object-cover" />
                             </div>
                         </div>
 
@@ -203,13 +216,23 @@ const Programs = () => {
                 {/* Coding & Technology Section */}
                 < section id="computer-science" className="mb-24 scroll-mt-24" >
                     <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 border-t-4 border-indigo-500">
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className="bg-indigo-100 p-4 rounded-full">
-                                <Code className="h-10 w-10 text-indigo-600" />
+                        <div className="flex flex-col lg:flex-row items-start lg:items-center gap-8 mb-10 text-left">
+                            <div className="lg:w-1/2 w-full h-64 rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                                <img src={techImage} alt="Computer Science" className="w-full h-full object-cover" />
                             </div>
-                            <div>
-                                <h2 className="text-3xl md:text-4xl font-bold text-primary">Computer Science</h2>
-                                <p className="text-gray-600 mt-1">Stand out to college admissions officers with technical fluency</p>
+                            <div className="lg:w-1/2">
+                                <div className="flex items-center gap-4 mb-6">
+                                    <div className="bg-indigo-100 p-4 rounded-full">
+                                        <Code className="h-10 w-10 text-indigo-600" />
+                                    </div>
+                                    <div>
+                                        <h2 className="text-3xl md:text-4xl font-bold text-primary">Computer Science</h2>
+                                        <p className="text-gray-600 mt-1">Stand out to college admissions officers with technical fluency</p>
+                                    </div>
+                                </div>
+                                <p className="text-gray-600 text-lg leading-relaxed mb-6">
+                                    From AP CS prep to cloud architecture, we prepare students for the future. Our project-based approach ensures students build real-world skills that stand out.
+                                </p>
                             </div>
                         </div>
 
@@ -285,13 +308,23 @@ const Programs = () => {
                 {/* College Admissions Section */}
                 < section id="college-admissions" className="mb-24 scroll-mt-24" >
                     <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 border-t-4 border-purple-500">
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className="bg-purple-100 p-4 rounded-full">
-                                <FileText className="h-10 w-10 text-purple-600" />
+                        <div className="flex flex-col lg:flex-row items-start lg:items-center gap-8 mb-10 text-left">
+                            <div className="lg:w-1/2">
+                                <div className="flex items-center gap-4 mb-6">
+                                    <div className="bg-purple-100 p-4 rounded-full">
+                                        <FileText className="h-10 w-10 text-purple-600" />
+                                    </div>
+                                    <div>
+                                        <h2 className="text-3xl md:text-4xl font-bold text-primary">College Application Support</h2>
+                                        <p className="text-gray-600 mt-1 text-lg italic">The final mile. We turn your hard work into a compelling narrative.</p>
+                                    </div>
+                                </div>
+                                <p className="text-gray-600 text-lg leading-relaxed mb-6">
+                                    Your personal statement is the most critical part of your application. We help students craft unique narratives that capture their essence and resonate with top-tier admissions.
+                                </p>
                             </div>
-                            <div>
-                                <h2 className="text-3xl md:text-4xl font-bold text-primary">College Application Support</h2>
-                                <p className="text-gray-600 mt-1 text-lg italic">The final mile. We turn your hard work into a compelling narrative.</p>
+                            <div className="lg:w-1/2 w-full h-64 rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                                <img src={collegeImage} alt="College Admissions Support" className="w-full h-full object-cover" />
                             </div>
                         </div>
 
