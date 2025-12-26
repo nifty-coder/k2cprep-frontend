@@ -17,7 +17,7 @@ const SATRoadmap = () => {
     const roadmapData = [
         {
             grade: "Grade 10 (Sophomore)",
-            title: "The Personalized Track",
+            title: "Proficiency Track",
             status: "Summer after 9th grade or 10th grade",
             goal: "National Merit Status + Early Completion",
             opportunity: "This is the 'Golden Window' for testing. You have time to master concepts deeply rather than cramming.",
@@ -27,13 +27,13 @@ const SATRoadmap = () => {
                 why: "Finishing early clears your schedule for May, allowing you to focus entirely on AP Exams and maintaining your GPA during the hardest academic semester."
             },
             recommendedPrograms: [
-                { name: "K2C Pro (Mentorship & Mastery)", desc: "The comprehensive mentorship route for high achievers." }
+                { name: "K2C Pro", desc: "The comprehensive mentorship route for high achievers." }
             ],
             color: "green"
         },
         {
             grade: "Grade 11 (Junior)",
-            title: "The Focused Track",
+            title: "Focus Track",
             status: "Summer after 10th grade or 11th grade",
             goal: "Maximize Efficiency & Finish Strong",
             opportunity: "You may have missed the window for National Merit (PSAT), but the door to top colleges is still wide open.",
@@ -43,7 +43,7 @@ const SATRoadmap = () => {
                 why: "You want to enter your final summer with testing completely done. This ensures you can dedicate 100% of your summer to College Applications and Essays without the stress of juggling SAT prep."
             },
             recommendedPrograms: [
-                { name: "K2C Lite (The Fast-Track)", desc: "A focused, streamlined approach to get your target score fast." }
+                { name: "K2C Focus", desc: "A focused, streamlined approach to get your target score fast." }
             ],
             color: "blue"
         },

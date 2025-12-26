@@ -109,7 +109,7 @@ const Programs = () => {
                                             {/* LITE HEADER */}
                                             <th className="p-4 sm:p-6 text-center align-bottom min-w-[140px]">
                                                 <div className="flex flex-col items-center">
-                                                    <span className="text-lg sm:text-2xl font-black">K2C Lite ($1500)</span>
+                                                    <span className="text-lg sm:text-2xl font-black">K2C Focus ($1500)</span>
                                                 </div>
                                             </th>
 
