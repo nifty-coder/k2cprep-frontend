@@ -17,7 +17,7 @@ const SATRoadmap = () => {
     const roadmapData = [
         {
             grade: "Grade 10 (Sophomore)",
-            title: "The Scholarship Route",
+            title: "The Personalized Track",
             status: "Summer after 9th grade or 10th grade",
             goal: "National Merit Status + Early Completion",
             opportunity: "This is the 'Golden Window' for testing. You have time to master concepts deeply rather than cramming.",
@@ -51,7 +51,7 @@ const SATRoadmap = () => {
             grade: "Grade 12 (Senior)",
             title: "The Finish Line",
             status: "Entering Senior Year",
-            goal: "Perfecting the Application",
+            goal: "Craft Your Narrative",
             opportunity: "Testing is complete—now it's time to tell your story.",
             strategy: "By Senior year, the testing phase should ideally be complete. Scores earn consideration, but your narrative secures the acceptance.",
             timeline: {
