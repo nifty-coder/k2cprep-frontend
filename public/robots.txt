@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Specifically allow Googlebot-Image to crawl icons
+User-agent: Googlebot-Image
+Allow: /favicon*.png
+Allow: /apple-touch-icon.png
+Allow: /android-chrome*.png
