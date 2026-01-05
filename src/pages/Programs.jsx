@@ -172,7 +172,7 @@ const Programs = () => {
                                     to="/sat-roadmap"
                                     className="w-full sm:w-auto inline-flex justify-center items-center bg-accent hover:bg-accent-hover text-white px-8 py-4 rounded-lg font-bold text-lg transition-all shadow-lg hover:scale-105 active:scale-95"
                                 >
-                                    View SAT Roadmap
+                                    View SAT Roadmap & Contact
                                 </Link>
                             </div>
                         </div>
