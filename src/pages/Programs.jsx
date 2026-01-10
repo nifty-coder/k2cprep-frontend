@@ -169,10 +169,10 @@ const Programs = () => {
                             {/* CTA Button */}
                             <div className="mt-10 sm:mt-12 text-center px-4 sm:px-0">
                                 <Link
-                                    to="/sat-roadmap"
+                                    to="/contact"
                                     className="w-full sm:w-auto inline-flex justify-center items-center bg-accent hover:bg-accent-hover text-white px-8 py-4 rounded-lg font-bold text-lg transition-all shadow-lg hover:scale-105 active:scale-95"
                                 >
-                                    View SAT Roadmap & Contact
+                                    Contact Us
                                 </Link>
                             </div>
                         </div>
