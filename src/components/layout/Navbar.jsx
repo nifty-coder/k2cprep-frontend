@@ -86,7 +86,13 @@ const Navbar = () => {
                                 )}
                             </div>
 
-
+                            <Link
+                                to="https://myhub.k2cprep.com"
+                                target="_blank"
+                                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${isActive('/roadmap')}`}
+                            >
+                                MyHub
+                            </Link>
 
                             {/* Contact */}
                             <Link

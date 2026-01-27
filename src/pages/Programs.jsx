@@ -36,8 +36,8 @@ const Programs = () => {
     const satComparisonData = [
         { feature: 'Class Size', lite: 'Max 7 Students', pro: 'Max 7 Students' },
         { feature: 'Instruction', lite: '15 Classes (2 hrs each)', pro: '15 Classes (2 hrs each)' },
-        { feature: 'Practice', lite: '6 Full-Length Tests', pro: '12 Full-Length Tests', highlight: true },
-        { feature: '1-on-1 Reviews', lite: '6 Test Reviews', pro: '12 Test Reviews', highlight: true },
+        { feature: 'Practice Tests', lite: '6 Full-Length Tests', pro: 'Upto 22 Full-Length Tests', highlight: true },
+        { feature: '1-on-1 Reviews', lite: '6 Test Reviews', pro: 'Upto 22 Test Reviews', highlight: true },
         { feature: 'Doubt Clarification', lite: 'In-class only', pro: '15 Dedicated 1-on-1 Sessions', highlight: true },
         { feature: 'Duration', lite: 'Support ends after 6 tests', pro: 'Support through final SAT attempt', highlight: true },
     ];
@@ -109,7 +109,7 @@ const Programs = () => {
                                             {/* LITE HEADER */}
                                             <th className="p-4 sm:p-6 text-center align-bottom min-w-[140px]">
                                                 <div className="flex flex-col items-center">
-                                                    <span className="text-lg sm:text-2xl font-black">K2C Focus ($1500)</span>
+                                                    <span className="text-lg sm:text-2xl font-black">K2C Focus</span>
                                                 </div>
                                             </th>
 
@@ -132,7 +132,7 @@ const Programs = () => {
                                                 </div>
 
                                                 <div className="flex flex-col items-center relative z-10">
-                                                    <span className="text-lg sm:text-2xl font-black text-white">K2C Pro ($2500)</span>
+                                                    <span className="text-lg sm:text-2xl font-black text-white">K2C Pro</span>
                                                 </div>
                                             </th>
                                         </tr>
@@ -169,10 +169,10 @@ const Programs = () => {
                             {/* CTA Button */}
                             <div className="mt-10 sm:mt-12 text-center px-4 sm:px-0">
                                 <Link
-                                    to="/contact"
+                                    to="/sat-roadmap"
                                     className="w-full sm:w-auto inline-flex justify-center items-center bg-accent hover:bg-accent-hover text-white px-8 py-4 rounded-lg font-bold text-lg transition-all shadow-lg hover:scale-105 active:scale-95"
                                 >
-                                    Contact Us
+                                    View SAT Roadmap and Contact
                                 </Link>
                             </div>
                         </div>

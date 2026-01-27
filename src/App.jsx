@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import WhyK2C from './pages/WhyK2C';
 import Programs from './pages/Programs';
 import Contact from './pages/Contact';
+import SATRoadmap from './pages/SATRoadmap';
 import NotFound from './pages/NotFound';
 
 const ScrollToTop = () => {
@@ -28,6 +29,7 @@ function App() {
           <Route path="why-k2c" element={<WhyK2C />} />
           <Route path="programs" element={<Programs />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="sat-roadmap" element={<SATRoadmap />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
