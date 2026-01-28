@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, BookOpen, ChevronRight, ChevronDown } from 'lucide-react';
 import logo from '../../assets/k2c-logo-transparent.png';
@@ -8,11 +8,36 @@ const Navbar = () => {
     const [isProgramsDropdownOpen, setIsProgramsDropdownOpen] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
+    const dropdownRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsProgramsDropdownOpen(false);
+            }
+        };
+
+        const handleEscKey = (event) => {
+            if (event.key === 'Escape') {
+                setIsProgramsDropdownOpen(false);
+            }
+        };
+
+        if (isProgramsDropdownOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+            document.addEventListener('keydown', handleEscKey);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('keydown', handleEscKey);
+        };
+    }, [isProgramsDropdownOpen]);
 
     const programsDropdownItems = [
-        { name: 'SAT Prep (Lite & Pro)', anchor: 'sat-prep' },
+        { name: 'SAT Prep', anchor: 'sat-prep' },
         { name: 'Math Tutoring', anchor: 'math-tutoring' },
-        { name: 'Computer Science & Cloud', anchor: 'computer-science' },
+        { name: 'Computer Science & Cloud Computing', anchor: 'computer-science' },
         { name: 'College Application Support', anchor: 'college-admissions' },
     ];
 
@@ -61,7 +86,7 @@ const Navbar = () => {
                             </Link>
 
                             {/* Programs Dropdown */}
-                            <div className="relative">
+                            <div className="relative" ref={dropdownRef}>
                                 <button
                                     onClick={() => setIsProgramsDropdownOpen(!isProgramsDropdownOpen)}
                                     className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center gap-1 ${location.pathname === '/programs' ? 'text-accent font-semibold' : 'text-gray-600 hover:text-primary'}`}
@@ -86,14 +111,6 @@ const Navbar = () => {
                                 )}
                             </div>
 
-                            <Link
-                                to="https://myhub.k2cprep.com"
-                                target="_blank"
-                                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${isActive('/roadmap')}`}
-                            >
-                                MyHub
-                            </Link>
-
                             {/* Contact */}
                             <Link
                                 to="/contact"
@@ -103,10 +120,11 @@ const Navbar = () => {
                             </Link>
 
                             <Link
-                                to="/contact"
+                                to="https://myhub.k2cprep.com"
+                                target="_blank"
                                 className="bg-accent hover:bg-accent-hover text-white px-4 py-2 rounded-md text-sm font-bold transition-colors shadow-sm ml-4"
                             >
-                                Book Consultation
+                                MyHub Student Portal
                             </Link>
                         </div>
                     </div>
@@ -172,8 +190,6 @@ const Navbar = () => {
                                 </div>
                             )}
                         </div>
-
-
 
                         {/* Contact */}
                         <Link
