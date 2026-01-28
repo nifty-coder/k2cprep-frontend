@@ -36,8 +36,8 @@ const Programs = () => {
     const satComparisonData = [
         { feature: 'Class Size', lite: 'Max 7 Students', pro: 'Max 7 Students' },
         { feature: 'Instruction', lite: '15 Classes (2 hrs each)', pro: '15 Classes (2 hrs each)' },
-        { feature: 'Practice Tests', lite: '6 Full-Length Tests', pro: 'Upto 22 Full-Length Tests', highlight: true },
-        { feature: '1-on-1 Reviews', lite: '6 Test Reviews', pro: 'Upto 22 Test Reviews', highlight: true },
+        { feature: 'Practice Tests', lite: '6 Full-Length Tests', pro: 'Upto 25 Full-Length Tests', highlight: true },
+        { feature: '1-on-1 Reviews', lite: '6 Test Reviews', pro: 'Upto 25 Test Reviews', highlight: true },
         { feature: 'Doubt Clarification', lite: 'In-class only', pro: '15 Dedicated 1-on-1 Sessions', highlight: true },
         { feature: 'Duration', lite: 'Support ends after 6 tests', pro: 'Support through final SAT attempt', highlight: true },
     ];
